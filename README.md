@@ -56,9 +56,4 @@ View Reviews: Check the ratings and reviews of maids before making a booking.
 Contact and Support
 If you have any questions or need assistance, our support team is here to help:
 
-Help Center: Visit our Help Center for FAQs and troubleshooting guides.
-Contact Us: Use the "Contact Us" form on our website or email us at support@nestify.com.
-Live Chat: Available during business hours for instant support.
-Thank you for choosing Nestify. We are committed to providing you with the best maid service experience.
-
 This README provides a comprehensive guide to using the Nestify platform. For more detailed information and updates, please refer to our website.
