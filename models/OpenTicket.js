@@ -53,4 +53,4 @@ OpenTicket.init(
   }
 );
 
-module.exports = Provider;
+module.exports = OpenTicket;
