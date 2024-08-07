@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nestify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="orange lighten-5">
+    
+     <nav>
+    <div class="nav-wrapper  green lighten-1">
+      <a href="#" class="brand-logo center black-text">Nestify</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#" class=" waves-effect waves-light blue lighten-2 black-text">Sign Up</a></li>
+        <li><a href="#" class=" waves-effect waves-light blue lighten-2 black-text">Login</a></li>
+    </div>
+  </nav>
+
+
+  <div class="intro center-align ">
+        <p>Clean your home with ease, create a request telling us what you need and a proper home taker will come to you.</p>
+  </div>
+
+  <div class="carousel carousel-slider center">
+    <div class="carousel-fixed-item center">
+    </div>
+    <div class="carousel-item green lighten-1 black-text" href="#one!">
+      <h2>Last Reviews</h2>
+      <p class="black-text">User1 says: Wow I cannot believe how easy Nestify makes my life! </p>
+      <i class="material-icons">star star star star star</i>
+    </div>
+    <div class="carousel-item green lighten-1 black-text" href="#two!">
+      <h2>Last Reviews</h2>
+      <p class="black-text">User2 says: I am so relieved to have a program like Nestify.</p>
+      <i class="material-icons">star star star star_half</i>
+    </div>
+    <div class="carousel-item green lighten-1 black-text" href="#three!">
+      <h2>Last Reviews</h2>
+      <p class="black-text">User3 says: If you need someone to watch your kids, look no further. Thanks Nestify!</p>
+      <i class="material-icons">star star star star</i>
+    </div>
+  </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.carousel');
+            var instances = M.Carousel.init(elems, {
+                fullWidth: true,
+                indicators: true
+            });
+        });
+    </script>
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>        
+</body>
+</html>
