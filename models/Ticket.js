@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class OpenTicket extends Model {}
+class Ticket extends Model {}
 
-OpenTicket.init(
+Ticket.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -33,15 +33,17 @@ OpenTicket.init(
         isDate: true, 
       },
     },
-    confirmed: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: false,
-    },
     user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'users',
+        key: 'id',
+      },
+    },
+    provider_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'providers',
         key: 'id',
       },
     },
@@ -53,4 +55,4 @@ OpenTicket.init(
   }
 );
 
-module.exports = OpenTicket;
+module.exports = Ticket;

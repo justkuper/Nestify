@@ -1,34 +1,22 @@
 const User = require('./User');
 const Provider = require('./Provider');
-const OpenTicket = require('./OpenTicket');
-const ConfirmedTicket = require('./ConfirmedTicket');
+const Ticket = require('./Ticket');
 
-User.hasMany(OpenTicket, {
-  foreignKey: 'user_id',
-  onDelete: "CASCADE",
-});
-
-OpenTicket.belongsTo(User, {
+User.hasMany(Ticket, {
   foreignKey: 'user_id',
 });
 
-User.hasMany(ConfirmedTicket, {
-  foreignKey: 'user_id',
-  onDelete: "CASCADE",
-});
-
-ConfirmedTicket.belongsTo(User, {
+Ticket.belongsTo(User, {
   foreignKey: 'user_id',
 });
 
-Provider.hasMany(ConfirmedTicket, {
+Provider.hasMany(Ticket, {
   foreignKey: 'provider_id',
-  onDelete: "CASCADE",
 });
 
-ConfirmedTicket.belongsTo(Provider, {
+Ticket.belongsTo(Provider, {
   foreignKey: 'provider_id',
 });
 
 
-module.exports = { User, Provider, OpenTicket, ConfirmedTicket };
+module.exports = { User, Provider, Ticket };
