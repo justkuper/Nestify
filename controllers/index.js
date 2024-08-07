@@ -10,6 +10,14 @@ router.get("/sessiondata", (req, res) => {
   res.json(req.session);
 });
 
+router.get('/', (req, res) => {
+  if (req.session.userType) {
+    res.redirect('/account');
+    return;
+  }
+  res.render('homepage');
+});
+
 router.get('/signup', (req, res) => {
   if (req.session.userType) {
     res.redirect('/account');
