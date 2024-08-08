@@ -20,7 +20,7 @@
             <h3>Requests History</h3>
     
             <ul class="green lighten-1">
-                {{#each ticket}}
+                {{#each tickets as |ticket|}}
                 <li>
                     <a href="/ticket/{{ticket.id}}">{{ticket.date}}</a>
                 </li>
@@ -30,13 +30,15 @@
         <section class="col s8">
             <h3>Last Request</h3>
              <div class="card-panel green lighten-1"></div>
-            {{#if ticket}}
-                <p>Request ID: {{ticket.id}}</p>
-                <p>Request Date: {{ticket.date}}</p>
-                <p>Request Description: {{ticket.description}}</p> 
-                <p>Request Pay: {{ticket.pay}}</p>
-                {{#if}}
-                <p>Provider: {{ticket.provider_id}}</p>
+
+            {{#if latestTicket}}
+                <p>Request ID: {{latestTicket.id}}</p>
+                <p>Request Date: {{latestTicket.date}}</p>
+                <p>Request Description: {{latestTicket.description}}</p> 
+                <p>Request Pay: {{latestTicket.pay}}</p>
+                {{#if latestTicket.provder_id}}
+                <p>Provider: {{latestTicket.provider_id}}</p>
+
                 {{/if}} 
             {{else}}
             <h3>No tickets available.</h3>
