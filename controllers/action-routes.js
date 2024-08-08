@@ -14,13 +14,14 @@ router.get('/user/', auth, async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id);
     res.render('user');
-    } 
-    const user = userData.get({ plain: true });
-    res.render('users', user);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
+    return;
   }
+  
+  const user = userData.get({ plain: true });
+  res.render('users', user);
 });
 
 router.get('/user/:id', auth, async (req, res) => {
