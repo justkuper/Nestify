@@ -9,20 +9,32 @@ const signupFormHandler = async (event) => {
 
     if (username && password && type) {
         // Send a POST request to the API endpoint
-        const response = await fetch("/api/users/login", {
-            method: "POST",
-            body: JSON.stringify({ username, password }),
-            headers: { "Content-Type": "application/json" },
-        });
+        // account creation 
+        if (type === "Ordinary User") {
+            const response = await fetch("/api/users", {
+                method: "POST",
+                body: JSON.stringify({ username, password }),
+                headers: { "Content-Type": "application/json" },
+            });
 
-        if (response.ok) {
-            if (type === "Ordinary User") {
+            if (response.ok) {
                 document.location.replace("/users");
-            } else if (type === "Provider") {
-                document.location.replace("/providers");
+            } else {
+                alert("Failed to sign up");
             }
-        } else {
-            alert("Failed to log in");
+        }
+        else {
+            const response = await fetch("/api/providers", {
+                method: "POST",
+                body: JSON.stringify({ username, password }),
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (response.ok) {
+                document.location.replace("/providers");
+            } else {
+                alert("Failed to sign up");
+            }
         }
     }
 }
