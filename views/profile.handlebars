@@ -1,0 +1,50 @@
+<h1 class="center-align">Profile</h1>
+
+<div class="row">
+    <div class="col s10">
+
+        <div class="row">
+            <div class="col s4">
+                <label for="username">Username</label>
+               {{if User}}
+                {{User.username}} 
+                {{else}}
+                {{Provider.username}}
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s4">
+                <label for="email">Email</label>
+                {{if User}}
+                {{User.email}} 
+                {{else}}
+                {{Provider.email}}
+                {{/if}}
+            </div>
+
+            <div class="row">
+                <div class="col s4">
+                    <label for="profile">Profile</label>
+                    {{if User}}
+                   <input type="text" placeholder="{{User.profile}}"> 
+                    {{else}}
+                    <input type="text" placeholder="{{Provider.profile}}">
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s4">
+                    <label for="profile">Zipcode</label>
+                    {{if User}}
+                   <input type="text" placeholder="{{User.zipcode}}"> 
+                    {{else}}
+                    <input type="text" placeholder="{{Provider.zipcode}}">
+                    {{/if}}
+                </div>
+            </div>
+
+    </div>
+</div>
