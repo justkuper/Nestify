@@ -1,0 +1,47 @@
+<header>
+        {{#if user}}
+        <nav>
+            <div class="nav-wrapper green lighten-1">
+                <a href="#" class="brand-logo center black-text">Requests</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li class="blue lighten-2 "><a href="/logout" class="waves-effect waves-light black-text">Logout</a></li>
+                    <li class="blue lighten-2 "><a href="/profile/:id" class="waves-effect waves-light black-text">View Profile</a></li>
+                    <li class="blue lighten-2 "><a href="/ticket" class="waves-effect waves-light black-text">Open a Request</a></li>
+                </ul>
+            </div>
+        </nav>
+        {{/if}}
+    </header>
+    
+    
+    <div class="row">
+        <section class="col s12">
+        <section class="col s4 ">
+            <h3>Requests History</h3>
+    
+            <ul class="green lighten-1">
+                {{#each ticket}}
+                <li>
+                    <a href="/ticket/{{ticket.id}}">{{ticket.date}}</a>
+                </li>
+                {{/each}}
+        </section>
+
+        <section class="col s8">
+            <h3>Last Request</h3>
+             <div class="card-panel green lighten-1"></div>
+            {{#if ticket}}
+                <p>Request ID: {{ticket.id}}</p>
+                <p>Request Date: {{ticket.date}}</p>
+                <p>Request Description: {{ticket.description}}</p> 
+                <p>Request Pay: {{ticket.pay}}</p>
+                {{if ticket.provder_id}}
+                <p>Provider: {{ticket.provider_id}}</p>
+                {{/if}} 
+            {{else}}
+            <h3>No tickets available.</h3>
+            {{/if}}
+              </div>
+        </section>
+    </section>
+   
