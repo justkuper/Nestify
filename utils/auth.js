@@ -3,7 +3,9 @@ const withAuth = (req, res, next) => {
     res.redirect(307, '/login');
     return;
   }
-  console.log(req.session.uid + "login")
+
+  console.log(req.session.uid + " auth")
+  
   next();
 };
 
