@@ -31,13 +31,13 @@
             <h3>Last Request</h3>
              <div class="card-panel green lighten-1"></div>
 
-            {{#if latestTicket}}
-                <p>Request ID: {{latestTicket.id}}</p>
-                <p>Request Date: {{latestTicket.date}}</p>
-                <p>Request Description: {{latestTicket.description}}</p> 
-                <p>Request Pay: {{latestTicket.pay}}</p>
-                {{#if latestTicket.provder_id}}
-                <p>Provider: {{latestTicket.provider_id}}</p>
+            {{#if recentTicket}}
+                <p>Request ID: {{recentTicket.id}}</p>
+                <p>Request Date: {{recentTicket.date}}</p>
+                <p>Request Description: {{recentTicket.description}}</p> 
+                <p>Request Pay: {{recentTicket.pay}}</p>
+                {{#if recentTicket.provider_id}}
+                <p>Provider: {{recentTicket.provider_id}}</p>
 
                 {{/if}} 
             {{else}}

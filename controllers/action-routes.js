@@ -42,7 +42,10 @@ router.get('/provider/:id', auth, async (req, res) => {
 
 
 router.get('/ticket/', auth, async (req, res) => {
+  // check userTYpe = "user", then proceed.  otherwise, redirect back to /provider.
   try {
+
+
     // Check if the user type is available in the session
     const userType = req.session.user.type;
 
@@ -59,6 +62,7 @@ router.get('/ticket/', auth, async (req, res) => {
       }
       res.render('ticket', { ticket: ticketData.get({ plain: true }) });
     }
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -66,6 +70,7 @@ router.get('/ticket/', auth, async (req, res) => {
 });
 
 router.get('/ticket/:id', auth, async (req, res) => {
+  // check ticket.user_id = session.uid and userType is user, if false, bounce back to /user.
   try {
     const ticketData = await Ticket.findByPk(req.params.id);
     if (!ticketData) {
@@ -73,11 +78,13 @@ router.get('/ticket/:id', auth, async (req, res) => {
       return;
     }
     const ticket = ticketData.get({ plain: true });
+
     const userId = req.session.user.id;
     const userType = req.session.user.type;
 
     // Pass the ticket data and user type to the template
     res.render('ticket', { ticket, userId, userType });
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
