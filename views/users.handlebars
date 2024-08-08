@@ -35,7 +35,7 @@
                 <p>Request Date: {{ticket.date}}</p>
                 <p>Request Description: {{ticket.description}}</p> 
                 <p>Request Pay: {{ticket.pay}}</p>
-                {{if ticket.provder_id}}
+                {{#if}}
                 <p>Provider: {{ticket.provider_id}}</p>
                 {{/if}} 
             {{else}}
