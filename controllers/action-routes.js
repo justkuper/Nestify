@@ -40,11 +40,29 @@ router.get('/provider/:id', auth, async (req, res) => {
   }
 });
 
+
 router.get('/ticket/', auth, async (req, res) => {
   // check userTYpe = "user", then proceed.  otherwise, redirect back to /provider.
   try {
-    const ticketData = await Ticket.findByPk(req.params.id);
-    res.render('ticket'); 
+
+
+    // Check if the user type is available in the session
+    const userType = req.session.user.type;
+
+    // Perform logic based on the user type
+    if (userType === 'Ordinary User') {
+      // user-specific logic
+      const ticketData = await Ticket.findAll(); // Example: user might fetch all tickets
+      res.render('user-tickets', { tickets: ticketData });
+    } else {
+      // Non-user logic
+      const ticketData = await Ticket.findByPk(req.params.id); // Example: other user fetches their own ticket
+      if (!ticketData) {
+        return res.status(404).json({ message: 'No ticket with this id!' });
+      }
+      res.render('ticket', { ticket: ticketData.get({ plain: true }) });
+    }
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -60,7 +78,13 @@ router.get('/ticket/:id', auth, async (req, res) => {
       return;
     }
     const ticket = ticketData.get({ plain: true });
-    res.render('ticket', ticket); //req.session.userType amd req.session.uid
+
+    const userId = req.session.user.id;
+    const userType = req.session.user.type;
+
+    // Pass the ticket data and user type to the template
+    res.render('ticket', { ticket, userId, userType });
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
