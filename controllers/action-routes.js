@@ -47,7 +47,7 @@ router.get('/ticket/', auth, async (req, res) => {
     const userType = req.session.user.type;
 
     // Perform logic based on the user type
-    if (userType === 'user') {
+    if (userType === 'Ordinary User') {
       // user-specific logic
       const ticketData = await Ticket.findAll(); // Example: user might fetch all tickets
       res.render('user-tickets', { tickets: ticketData });
