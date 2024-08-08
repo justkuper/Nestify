@@ -13,8 +13,11 @@
     <div class="nav-wrapper  green lighten-1">
       <a href="#" class="brand-logo center black-text">Nestify</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {{#if uid}}
+        {{else}}
         <li><a href="#" class=" waves-effect waves-light blue lighten-2 black-text">Sign Up</a></li>
         <li><a href="#" class=" waves-effect waves-light blue lighten-2 black-text">Login</a></li>
+        {{/if}}
     </div>
   </nav>
     </header>
