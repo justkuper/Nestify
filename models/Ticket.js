@@ -27,7 +27,7 @@ Ticket.init(
       },
     },
     date: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isDate: true, 
