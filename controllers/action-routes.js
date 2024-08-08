@@ -41,9 +41,10 @@ router.get('/provider/:id', auth, async (req, res) => {
 });
 
 router.get('/ticket/', auth, async (req, res) => {
+  // check userTYpe = "user", then proceed.  otherwise, redirect back to /provider.
   try {
     const ticketData = await Ticket.findByPk(req.params.id);
-    res.render('ticket');
+    res.render('ticket'); 
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -51,6 +52,7 @@ router.get('/ticket/', auth, async (req, res) => {
 });
 
 router.get('/ticket/:id', auth, async (req, res) => {
+  // check ticket.user_id = session.uid and userType is user, if false, bounce back to /user.
   try {
     const ticketData = await Ticket.findByPk(req.params.id);
     if (!ticketData) {
@@ -58,7 +60,7 @@ router.get('/ticket/:id', auth, async (req, res) => {
       return;
     }
     const ticket = ticketData.get({ plain: true });
-    res.render('ticket', ticket);
+    res.render('ticket', ticket); //req.session.userType amd req.session.uid
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
