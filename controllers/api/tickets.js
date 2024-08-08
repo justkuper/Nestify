@@ -40,10 +40,5 @@ router.put('/:id', (req, res) => {
     });
 });
 
-async function getLatestTicket() {
-  return await Ticket.findOne({
-      order: [['createdAt', 'DESC']]
-  });
-}
 
 module.exports = router;
