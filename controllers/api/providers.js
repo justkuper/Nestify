@@ -1,22 +1,22 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { Provider } = require('../../models');
 
-// CREATE new user
+// CREATE new Provider
 router.post('/', async (req, res) => {
   try {
-    const dbUserData = (await User.create({
+    const dbProviderData = (await Provider.create({
       username: req.body.username,
       profile: req.body.profile,
       email: req.body.email,
       zipcode: req.body.zipcode,
       password: req.body.password,
     })).toJSON();
-    // console.log(dbUserData.toJSON().id);
+    // console.log(dbProviderData.toJSON().id);
     req.session.save(() => {
-      req.session.userType = "user";
-      req.session.uid = dbUserData.id;
+      req.session.userType = "provider";
+      req.session.uid = dbProviderData.id;
 
-      res.status(200).json(dbUserData);
+      res.status(200).json(dbProviderData);
     });
   } catch (err) {
     console.log(err);
@@ -26,11 +26,11 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', (req, res) => {
   if (req.session.uid != req.params.id) {
-    res.status(400).json({ message: "Do not hijack other user's profile." });
+    res.status(400).json({ message: "Do not hijack other Provider's profile." });
     return;
   }
-
-  User.update(
+  
+  Provider.update(
     {
       profile: req.body.profile,
       zipcode: req.body.zipcode,
@@ -41,12 +41,12 @@ router.put('/:id', (req, res) => {
       },
     }
   )
-    .then((updatedUser) => {
-      if (updatedUser[0] === 0) {
-        res.status(404).json({ message: 'No user found with that id!' });
+    .then((updatedProvider) => {
+      if (updatedProvider[0] === 0) {
+        res.status(404).json({ message: 'No Provider found with that id!' });
         return;
       }
-      res.json(updatedUser);
+      res.json(updatedProvider);
     })
     .catch((err) => {
       console.log(err);
@@ -57,31 +57,31 @@ router.put('/:id', (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
-    const dbUserData = await User.findOne({
+    const dbProviderData = await Provider.findOne({
       where: {
         username: req.body.username,
       },
     });
 
-    if (!dbUserData) {
+    if (!dbProviderData) {
       res
         .status(400)
         .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
 
-    const validPassword = await dbUserData.checkPassword(req.body.password);
+    const validPassword = await dbProviderData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect username or password. Please try again!' });
+        .json({ message: 'Incorrect Providername or password. Please try again!' });
       return;
     }
-    console.log(dbUserData.id);
+    console.log(dbProviderData.id);
     req.session.save(() => {
-      req.session.userType = "user";
-      req.session.uid = dbUserData.id;
+      req.session.userType = "provider";
+      req.session.uid = dbProviderData.id;
       res.status(200).json({ message: 'You are now logged in!'});
     });
   } catch (err) {
