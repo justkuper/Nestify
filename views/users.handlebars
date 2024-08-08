@@ -30,6 +30,7 @@
         <section class="col s8">
             <h3>Last Request</h3>
              <div class="card-panel green lighten-1"></div>
+
             {{#if latestTicket}}
                 <p>Request ID: {{latestTicket.id}}</p>
                 <p>Request Date: {{latestTicket.date}}</p>
@@ -37,6 +38,7 @@
                 <p>Request Pay: {{latestTicket.pay}}</p>
                 {{#if latestTicket.provder_id}}
                 <p>Provider: {{latestTicket.provider_id}}</p>
+
                 {{/if}} 
             {{else}}
             <h3>No tickets available.</h3>
