@@ -1,0 +1,32 @@
+<h1 class="center-align">Request Form</h1>
+
+<div class="row">
+    <div class="col s10">
+
+        <div class="row">
+            <div class="col s6">
+                {{#if User}}
+                <label for="description">Description:</label>
+                <input type="text" placeholder="Tell us what you need">
+                <label for="date">Date</label>
+                <input type="date" placeholder="When do you need it?">
+                <label for="pay">Pay</label>
+                <input type="text" placeholder="How much are you willing to pay?">
+                {{/if}}
+
+                {{#if Provider}}
+                <label for="description">Description:</label>
+                <p>{{Ticket.description}}</p>
+                <label for="date">Date</label>
+                <p>{{Ticket.date}}</p>
+                <label for="pay">Pay</label>
+                 <p>{{Ticket.pay}}</p>
+                 <label for="distance">Distance</label>
+                 <p></p>
+                 <label for="email">Email</label>
+                 <p>{{User.email}}</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
