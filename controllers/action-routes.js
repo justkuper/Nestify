@@ -16,7 +16,7 @@ router.get('/user/', auth, async (req, res) => {
     res.render('user');
     } 
     const user = userData.get({ plain: true });
-    res.render('user', user);
+    res.render('users', user);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -31,7 +31,7 @@ router.get('/user/:id', auth, async (req, res) => {
       return;
     }
     const user = userData.get({ plain: true });
-    res.render('user', user);
+    res.render('profile', user);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -41,7 +41,7 @@ router.get('/user/:id', auth, async (req, res) => {
 router.get('/provider', auth, async (req, res) => {
   try {
     const providerData = await Provider.findByPk(req.params.id);
-    res.render('provider');
+    res.render('providers');
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -56,7 +56,7 @@ router.get('/provider/:id', auth, async (req, res) => {
       return;
     }
     const provider = providerData.get({ plain: true });
-    res.render('provider', provider);
+    res.render('profile', provider);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -91,7 +91,7 @@ router.get('/ticket/:id', auth, async (req, res) => {
 router.get('/account', auth, async (req, res) => {
   try {
     const ticket = await getLatestTicket();
-    res.render('accounts', { ticket });
+    res.render('ticket', { ticket });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
