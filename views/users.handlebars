@@ -4,9 +4,9 @@
             <div class="nav-wrapper green lighten-1">
                 <a href="#" class="brand-logo center black-text">Requests</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li class="blue lighten-2 "><a href="/logout" class="waves-effect waves-light black-text">Logout</a></li>
-                    <li class="blue lighten-2 "><a href="/profile/:id" class="waves-effect waves-light black-text">View Profile</a></li>
-                    <li class="blue lighten-2 "><a href="/ticket" class="waves-effect waves-light black-text">Open a Request</a></li>
+                    <li class="blue lighten-2 "><a href="/logout" class="waves-effect waves-light black-text" id="logout">Logout</a></li>
+                    <li class="blue lighten-2 "><a href="/user/{{uid}}" class="waves-effect waves-light black-text" id="profile">View Profile</a></li>
+                    <li class="blue lighten-2 "><a href="/ticket" class="waves-effect waves-light black-text" id="open">Open a Request</a></li>
                 </ul>
             </div>
         </nav>
@@ -46,4 +46,4 @@
               </div>
         </section>
     </section>
-   
+   <script src="/js/users.js"></script>

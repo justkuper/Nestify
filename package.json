@@ -20,6 +20,7 @@
     "express-session": "^1.17.1",
     "handlebars": "^4.7.6",
     "pg": "^8.11.3",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "zipcode-city-distance-more-zipcodes": "^1.0.7"
   }
 }
