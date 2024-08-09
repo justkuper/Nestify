@@ -6,10 +6,10 @@
         <div class="row">
             <div class="col s4">
                 <label for="username">Username</label>
-               {{if User}}
-                {{User.username}} 
+                {{#if isUser}}
+                    {{user.username}} 
                 {{else}}
-                {{Provider.username}}
+                    {{provider.username}}
                 {{/if}}
             </div>
         </div>
@@ -17,20 +17,20 @@
         <div class="row">
             <div class="col s4">
                 <label for="email">Email</label>
-                {{if User}}
-                {{User.email}} 
+                {{#if isUser}}
+                    {{user.email}} 
                 {{else}}
-                {{Provider.email}}
+                    {{provider.email}}
                 {{/if}}
             </div>
 
             <div class="row">
                 <div class="col s4">
                     <label for="profile">Profile</label>
-                    {{if User}}
-                   <input type="text" placeholder="{{User.profile}}"> 
+                    {{#if isUser}}
+                   <input type="text" placeholder="{{user.profile}}"> 
                     {{else}}
-                    <input type="text" placeholder="{{Provider.profile}}">
+                    <input type="text" placeholder="{{provider.profile}}">
                     {{/if}}
                 </div>
             </div>
@@ -38,10 +38,10 @@
             <div class="row">
                 <div class="col s4">
                     <label for="profile">Zipcode</label>
-                    {{if User}}
-                   <input type="text" placeholder="{{User.zipcode}}"> 
+                    {{#if isUser}}
+                   <input type="text" placeholder="{{user.zipcode}}"> 
                     {{else}}
-                    <input type="text" placeholder="{{Provider.zipcode}}">
+                    <input type="text" placeholder="{{provider.zipcode}}">
                     {{/if}}
                 </div>
             </div>

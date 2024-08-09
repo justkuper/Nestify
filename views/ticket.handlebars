@@ -5,27 +5,35 @@
 
         <div class="row">
             <div class="col s6">
-                {{#if User}}
-                <label for="description">Description:</label>
-                <input type="text" placeholder="Tell us what you need">
-                <label for="date">Date</label>
-                <input type="date" placeholder="When do you need it?">
-                <label for="pay">Pay</label>
-                <input type="text" placeholder="How much are you willing to pay?">
+                {{#if createATicket}}
+                    <label for="description">Description:</label>
+                    <input type="text" placeholder="Tell us what you need">
+                    <label for="date">Date</label>
+                    <input type="date" placeholder="When do you need it?">
+                    <label for="pay">Pay</label>
+                    <input type="text" placeholder="How much are you willing to pay?">
+                {{else}}
+
+                    <label for="description">Description:</label>
+                    <p>{{ticket.description}}</p>
+                    <label for="date">Date</label>
+                    <p>{{ticket.date}}</p>
+                    <label for="pay">Pay</label>
+                    <p>{{ticket.pay}}</p>
+                    {{#if isProvider}}
+                    <label for="distance">Distance</label>
+                    <p>{{distance}}</p>
+                        {{#if noProvider}}
+                            <label for="email">Email</label>
+                            <p>{{ticket.User.email}}</p>
+                            <label for="button">Place holder for the accept button</label>
+                        {{else}}
+                            <p>This ticket is already claimed by another provider.</p>
+                        {{/if}}
+                    {{/if}}
                 {{/if}}
 
-                {{#if Provider}}
-                <label for="description">Description:</label>
-                <p>{{Ticket.description}}</p>
-                <label for="date">Date</label>
-                <p>{{Ticket.date}}</p>
-                <label for="pay">Pay</label>
-                 <p>{{Ticket.pay}}</p>
-                 <label for="distance">Distance</label>
-                 <p></p>
-                 <label for="email">Email</label>
-                 <p>{{User.email}}</p>
-                {{/if}}
+
             </div>
         </div>
     </div>
