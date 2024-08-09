@@ -1,17 +1,19 @@
-const { log } = require("handlebars");
 
 const logout = document.querySelector('#logout');
 const profile = document.querySelector('#profile');
-const openRequests = document.querySelector('#open');
+const createTicket = document.querySelector('#createTicket');
 
 logout.addEventListener('click', () => {
     window.location.replace('/logout');   
 });
 
-profile.addEventListener('click', () => {
-    window.location.replace('/users/');
+profile.addEventListener('click', (event) => {
+    console.log(event.target);
+    const id = event.target.dataset.uid;
+    // window.location.replace(`/users/${id}`);
 });
 
-openRequests.addEventListener('click', () => {
+createTicket.addEventListener('click', () => {
+    console.log('asdf');
     window.location.replace('/ticket');
 });

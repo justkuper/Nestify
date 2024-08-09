@@ -126,6 +126,7 @@ router.get('/ticket/:id', auth, async (req, res) => {
       
       const noProvider = (!ticket.provider_id) ? true : false; 
 
+      
       res.render('ticket', {ticket, distance, isProvider: true, noProvider: noProvider, uid: req.session.uid});
     }
 
