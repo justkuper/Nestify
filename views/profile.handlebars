@@ -23,14 +23,15 @@
                     {{provider.email}}
                 {{/if}}
             </div>
+        </div>
 
             <div class="row">
                 <div class="col s4">
                     <label for="profile">Profile</label>
                     {{#if isUser}}
-                   <input type="text" placeholder="{{user.profile}}"> 
+                   <input id="newprofile" type="text" placeholder="{{user.profile}}"> 
                     {{else}}
-                    <input type="text" placeholder="{{provider.profile}}">
+                    <input id="newprofile" type="text" placeholder="{{provider.profile}}">
                     {{/if}}
                 </div>
             </div>
@@ -39,12 +40,19 @@
                 <div class="col s4">
                     <label for="profile">Zipcode</label>
                     {{#if isUser}}
-                   <input type="text" placeholder="{{user.zipcode}}"> 
+                   <input id="newzipcode" type="text" placeholder="{{user.zipcode}}"> 
                     {{else}}
-                    <input type="text" placeholder="{{provider.zipcode}}">
+                    <input id="newzipcode" type="text" placeholder="{{provider.zipcode}}">
                     {{/if}}
                 </div>
             </div>
-
+            {{#if isUser}}
+            <button id="updatebtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{user.id}}" data-usertype="user">Update
+                                <i class="material-icons right">send</i>
+             {{else}}
+             <button id="updatebtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{provider.id}}" data-usertype="provider">Update
+                                <i class="material-icons right">send</i>
+             {{/if}}
     </div>
 </div>
+<script src="/js/profile.js"></script>

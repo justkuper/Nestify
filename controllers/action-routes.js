@@ -81,7 +81,7 @@ router.get('/ticket/', auth, async (req, res) => {
       res.redirect(307, '/provider');
       return;
     }
-    res.render('ticket', { createATicket: true });
+    res.render('ticket', { createATicket: true, uid: req.session.uid });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

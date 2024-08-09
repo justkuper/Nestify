@@ -8,9 +8,10 @@ logout.addEventListener('click', () => {
 });
 
 profile.addEventListener('click', (event) => {
-    console.log(event.target);
+    event.stopPropagation();
+    console.log(event);
     const id = event.target.dataset.uid;
-    // window.location.replace(`/users/${id}`);
+    window.location.replace(`/user/${id}`);
 });
 
 createTicket.addEventListener('click', () => {
