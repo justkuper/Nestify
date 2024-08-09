@@ -1,21 +1,29 @@
-<h1 class="center-align">Request Form</h1>
+
+                {{#if createATicket}}
+                <h1 class="center-align">Create a Ticket</h1>
+
+        <div class="row">
+            <div class="col s10">
+                <div class="row">
+                    <div class="col s6">
+                    <label for="description">Description:</label>
+                    <input id="description" type="text" placeholder="Tell us what you need">
+                    <label for="date">Date</label>
+                    <input id="date" type="date">
+                    <label for="pay">Pay</label>
+                    <input id="pay" type="text" placeholder="How much are you willing to pay?">
+                    <button id="createticket" data-uid="{{uid}}" class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i data-uid="{{uid}}" class="material-icons right">send</i>
+                    </button>
+                    <script src="/js/createticket.js"></script>
+                {{else}}
+<h1 class="center-align">View Ticket Details</h1>
 
 <div class="row">
     <div class="col s10">
 
         <div class="row">
             <div class="col s6">
-                {{#if createATicket}}
-                    <label for="description">Description:</label>
-                    <input type="text" placeholder="Tell us what you need">
-                    <label for="date">Date</label>
-                    <input type="date" placeholder="When do you need it?">
-                    <label for="pay">Pay</label>
-                    <input type="text" placeholder="How much are you willing to pay?">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right">send</i>
-                {{else}}
-
                     <label for="description">Description:</label>
                     <p>{{ticket.description}}</p>
                     <label for="date">Date</label>
@@ -39,6 +47,7 @@
                             <p>This ticket is already claimed by another provider.</p>
                         {{/if}}
                     {{/if}}
+                    <script src="/js/ticket.js"></script>
                 {{/if}}
 
 
@@ -46,4 +55,3 @@
         </div>
     </div>
 </div>
-<script src="/js/ticket"></script>

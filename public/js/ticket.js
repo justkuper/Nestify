@@ -1,5 +1,7 @@
 
+
 const acceptbtn = document.querySelector('#acceptbtn'); 
+
 
 const ticketFormHandler = async (event) => {
     event.preventDefault();
@@ -44,3 +46,5 @@ const ticketFormHandler = async (event) => {
     }
 
 acceptbtn.addEventListener('click', acceptTicketHandler);
+
+
