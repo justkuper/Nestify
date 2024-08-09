@@ -103,6 +103,9 @@ router.get('/ticket/:id', auth, async (req, res) => {
     const ticket = ticketData.toJSON();
     console.log(ticket);
     console.log(typeof ticket.provider_id);
+    if (ticket.provider_id) {
+      ticket.provider_id = ticket.provider_id.toString();
+    }
     if (req.session.userType === 'user') {
       if (ticket.user_id != req.session.uid) {
         res.redirect(307, '/user');
@@ -118,7 +121,7 @@ router.get('/ticket/:id', auth, async (req, res) => {
       
       const noProvider = (!ticket.provider_id) ? true : false; 
 
-      res.render('ticket', {ticket, distance, isProvider: true, noProvider: noProvider});
+      res.render('ticket', {ticket, distance, isProvider: true, noProvider: noProvider, uid: req.session.uid});
     }
 
   } catch (err) {

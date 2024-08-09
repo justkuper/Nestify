@@ -4,6 +4,7 @@ const signupFormHandler = async (event) => {
     // Collect values from the login form
     const username = document.querySelector("#username").value.trim();
     const password = document.querySelector("#password").value.trim();
+    const signupBtn = document.querySelector("#signupBtn");
     // radio buttons 
     const type = document.querySelector('input[name="userType"]:checked').value
 
@@ -37,4 +38,6 @@ const signupFormHandler = async (event) => {
             }
         }
     }
+    
 }
+signupBtn.addEventListener("click", signupFormHandler);

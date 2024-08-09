@@ -12,6 +12,7 @@
                     <input type="date" placeholder="When do you need it?">
                     <label for="pay">Pay</label>
                     <input type="text" placeholder="How much are you willing to pay?">
+                    
                 {{else}}
 
                     <label for="description">Description:</label>
@@ -20,13 +21,21 @@
                     <p>{{ticket.date}}</p>
                     <label for="pay">Pay</label>
                     <p>{{ticket.pay}}</p>
+                    {{#if acceptTicketHandler}}
+                    <label for="provider">Provider's Information:</label>
+                    <p>{{Provider.username}} {{Provider.email}}</p>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                        {{/if}}
                     {{#if isProvider}}
                     <label for="distance">Distance</label>
                     <p>{{distance}}</p>
                         {{#if noProvider}}
                             <label for="email">Email</label>
                             <p>{{ticket.User.email}}</p>
-                            <label for="button">Place holder for the accept button</label>
+                            <label for="button"></label>
+                            <button id="acceptbtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{uid}}">Accept Request
+                                <i class="material-icons right">send</i>
                         {{else}}
                             <p>This ticket is already claimed by another provider.</p>
                         {{/if}}
