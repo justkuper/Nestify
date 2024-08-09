@@ -4,6 +4,7 @@ const loginFormHandler = async (event) => {
     // Collect values from the login form
     const username = document.querySelector("#username").value.trim();
     const password = document.querySelector("#password").value.trim();
+    const loginBtn = document.querySelector("#login");
     // radio buttons 
     const type = document.querySelector('input[name="group3"]:checked').value
 
@@ -25,4 +26,6 @@ const loginFormHandler = async (event) => {
             alert("Failed to log in");
         }
     }
+    
 }
+loginBtn.addEventListener("click", loginFormHandler);
