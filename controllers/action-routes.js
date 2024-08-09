@@ -101,17 +101,22 @@ router.get('/ticket/:id', auth, async (req, res) => {
     }
 
     const ticket = ticketData.toJSON();
-    console.log(ticket);
-    console.log(typeof ticket.provider_id);
-    if (ticket.provider_id) {
-      ticket.provider_id = ticket.provider_id.toString();
-    }
+    
     if (req.session.userType === 'user') {
       if (ticket.user_id != req.session.uid) {
         res.redirect(307, '/user');
         return;
       }
-      res.render('ticket', {ticket});
+      if (ticket.provider_id) {
+        // console.log("yes provider#################################3");
+        const provider = (await Provider.findByPk(ticket.provider_id, {
+          attributes: {exclude: ['password']}})).toJSON();
+          console.log(provider);
+          res.render('ticket', {ticket, provider});
+        } else {
+        // console.log("no provider#################################3");
+        res.render('ticket', {ticket});
+      };
     } else {
       const providerZipcode = (await Provider.findByPk(req.session.uid, {
         attributes: ['zipcode'],
