@@ -19,8 +19,9 @@ router.get('/user/', auth, async (req, res) => {
     // console.log(tickets);
     tickets.sort(compareDate);
     const recentTicket = getMostRecentTicket(tickets);
-
-    res.render('users', {tickets, uid: req.session.uid, recentTicket});
+    const isUser = (req.session.userType === 'user') ? true : false;
+    console.log(isUser);
+    res.render('users', {tickets, uid: req.session.uid, recentTicket, isUser: isUser});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
