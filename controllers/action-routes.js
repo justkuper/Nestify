@@ -1,24 +1,40 @@
 const router = require('express').Router();
 const { User, Provider, Ticket } = require('../models');
+const zipCodeData = require('zipcode-city-distance-more-zipcodes');
 const auth = require('../utils/auth');
 
-router.get('/', auth, async (req, res) => {
-  const providerData = await Provider.findAll().catch((err) => {
-    res.json(err);
-  });
-  const providers = providerData.map((provider) => provider.get({ plain: true }));
-  res.render('all', { providers });
-});
+// get Provider or User data by GET /api/users/:id or /api/providers/:id
+// router.get('/', auth, async (req, res) => {
+//   const providerData = await Provider.findAll().catch((err) => {
+//     res.json(err);
+//   });
+//   const providers = providerData.map((provider) => provider.get({ plain: true }));
+//   res.render('all', { providers });
+// });
 
 router.get('/user/:id', auth, async (req, res) => {
+  // check whether the atttemp is from the correct user type and matching user id.  Otherwise redirect back to /login.  
+  if (req.session.userType !== "user" || req.session.uid != req.params.id) {
+    res.redirect(307, '/login');
+    return;
+  }
+
   try {
-    const userData = await User.findByPk(req.params.id);
+        // exclude password from the query result
+    const userData = await User.findByPk(req.params.id, {
+      attributes: {exclude: ['password']}
+    });
+
     if (!userData) {
-      res.status(404).json({ message: 'No provider with this id!' });
+      res.status(404).json({ message: 'No user with this id!' });
       return;
     }
+
     const user = userData.get({ plain: true });
-    res.render('profile', user);
+    console.log(user);
+
+    // hardcoded isUser so the handlebars know which user type it is
+    res.render('profile', {user, isUser : true});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -26,14 +42,29 @@ router.get('/user/:id', auth, async (req, res) => {
 });
 
 router.get('/provider/:id', auth, async (req, res) => {
+
+
   try {
-    const providerData = await Provider.findByPk(req.params.id);
+    // check whether the atttemp is from the correct user type and matching user id.  Otherwise redirect back to /login.  
+    if (req.session.userType !== "provider" || req.session.uid != req.params.id) {
+      res.redirect(307, '/login');
+      return;
+    }
+
+    // exclude password from the query result
+    const providerData = await Provider.findByPk(req.params.id, {
+      attributes: {exclude: ['password']}
+    });
+
     if (!providerData) {
       res.status(404).json({ message: 'No user with this id!' });
       return;
     }
+
     const provider = providerData.get({ plain: true });
-    res.render('profile', provider);
+
+        // hardcoded isUser so the handlebars know which user type it is
+    res.render('profile', {provider, isUser : false});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -42,27 +73,15 @@ router.get('/provider/:id', auth, async (req, res) => {
 
 
 router.get('/ticket/', auth, async (req, res) => {
-  // check userTYpe = "user", then proceed.  otherwise, redirect back to /provider.
   try {
-
-
+    // check userTYpe = "user", then proceed.  otherwise, redirect back to /provider.
     // Check if the user type is available in the session
-    const userType = req.session.user.type;
-
     // Perform logic based on the user type
-    if (userType === 'Ordinary User') {
-      // user-specific logic
-      const ticketData = await Ticket.findAll(); // Example: user might fetch all tickets
-      res.render('user-tickets', { tickets: ticketData });
-    } else {
-      // Non-user logic
-      const ticketData = await Ticket.findByPk(req.params.id); // Example: other user fetches their own ticket
-      if (!ticketData) {
-        return res.status(404).json({ message: 'No ticket with this id!' });
-      }
-      res.render('ticket', { ticket: ticketData.get({ plain: true }) });
+    if (req.session.userType === 'provider') {
+      res.redirect(307, '/provider');
+      return;
     }
-
+    res.render('ticket', { createATicket: true });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -72,18 +91,35 @@ router.get('/ticket/', auth, async (req, res) => {
 router.get('/ticket/:id', auth, async (req, res) => {
   // check ticket.user_id = session.uid and userType is user, if false, bounce back to /user.
   try {
-    const ticketData = await Ticket.findByPk(req.params.id);
+    const ticketData = await Ticket.findByPk(req.params.id, {
+      include : [{ model: User, attributes: {exclude: ['password']}}],
+    });
+
     if (!ticketData) {
       res.status(404).json({ message: 'No ticket with this id!' });
       return;
     }
-    const ticket = ticketData.get({ plain: true });
 
-    const userId = req.session.user.id;
-    const userType = req.session.user.type;
+    const ticket = ticketData.toJSON();
+    console.log(ticket);
+    console.log(typeof ticket.provider_id);
+    if (req.session.userType === 'user') {
+      if (ticket.user_id != req.session.uid) {
+        res.redirect(307, '/user');
+        return;
+      }
+      res.render('ticket', {ticket});
+    } else {
+      const providerZipcode = (await Provider.findByPk(req.session.uid, {
+        attributes: ['zipcode'],
+      })).toJSON().zipcode;
 
-    // Pass the ticket data and user type to the template
-    res.render('ticket', { ticket, userId, userType });
+      const distance = (Math.round(zipCodeData.zipCodeDistance(ticket.User.zipcode, providerZipcode,'M') * 100) / 100) + " miles"
+      
+      const noProvider = (!ticket.provider_id) ? true : false; 
+
+      res.render('ticket', {ticket, distance, isProvider: true, noProvider: noProvider});
+    }
 
   } catch (err) {
     console.log(err);
