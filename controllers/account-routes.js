@@ -2,6 +2,7 @@ const router = require('express').Router();
 const zipCodeData = require('zipcode-city-distance-more-zipcodes');
 const { User, Provider, Ticket } = require('../models');
 const auth = require('../utils/auth');
+const { compareDate, getMostRecentTicket } = require('../utils/sortDate');
 
 router.get('/user/', auth, async (req, res) => {
   try {
@@ -10,26 +11,16 @@ router.get('/user/', auth, async (req, res) => {
         user_id: req.session.uid,
       },
       include : [{ model: User, attributes: ['zipcode']}],
-      limit: 7,
-      order: [['created_at', 'DESC']]
+      limit: 15,
+      order: [['date', 'DESC']]
     }));
 
     const tickets = ticketData.map((ticket) => ticket.toJSON());
-    console.log(tickets);
-    const latestTicket = tickets[0];
-    const recentTicket = tickets.reduce((recent, test) => { 
-      if ((new Date(test.date) - new Date()) < 0) {
-        return recent;
-      } else {
-        if ((new Date(test.date) < new Date(recent.date))) {
-          return test;
-        } else{
-          return recent;
-        }
-      }
-    });
+    // console.log(tickets);
+    tickets.sort(compareDate);
+    const recentTicket = getMostRecentTicket(tickets);
 
-    res.render('users', {tickets, uid: req.session.uid, latestTicket, recentTicket});
+    res.render('users', {tickets, uid: req.session.uid, recentTicket});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -43,8 +34,8 @@ router.get('/provider', auth, async (req, res) => {
         provider_id: null,
       },
       include : [{ model: User, attributes: ['zipcode']}],
-      limit: 7,
-      order: [['created_at', 'DESC']]
+      limit: 15,
+      order: [['date', 'DESC']]
     }));
 
     const providerZipcode = (await Provider.findByPk(req.session.uid, {
@@ -61,22 +52,10 @@ router.get('/provider', auth, async (req, res) => {
       } 
     });
 
-    console.log(tickets);
-    const recentTicket = tickets.reduce((recent, test) => { 
-      if ((new Date(test.date) - new Date()) < 0) {
-        return recent;
-      } else {
-        if ((new Date(test.date) < new Date(recent.date))) {
-          return test;
-        } else{
-          return recent;
-        }
-      }
-    });
-    console.log(recentTicket);
-    const latestTicket = tickets[0];
+    tickets.sort(compareDate);
+    const recentTicket = getMostRecentTicket(tickets);
 
-    res.render('users', {tickets, uid: req.session.uid, latestTicket,});
+    res.render('users', {tickets, uid: req.session.uid, recentTicket});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
