@@ -1,16 +1,7 @@
 const router = require('express').Router();
 const { User, Provider, Ticket } = require('../models');
 const zipCodeData = require('zipcode-city-distance-more-zipcodes');
-const auth = require('../utils/auth');
-
-// get Provider or User data by GET /api/users/:id or /api/providers/:id
-// router.get('/', auth, async (req, res) => {
-//   const providerData = await Provider.findAll().catch((err) => {
-//     res.json(err);
-//   });
-//   const providers = providerData.map((provider) => provider.get({ plain: true }));
-//   res.render('all', { providers });
-// });
+const {auth} = require('../utils/auth');
 
 router.get('/user/:id', auth, async (req, res) => {
   // check whether the atttemp is from the correct user type and matching user id.  Otherwise redirect back to /login.  
@@ -34,7 +25,7 @@ router.get('/user/:id', auth, async (req, res) => {
     console.log(user);
 
     // hardcoded isUser so the handlebars know which user type it is
-    res.render('profile', {user, isUser : true});
+    res.render('profile', {user, isUser : true, uid: req.session.uid, viewProfile: true});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -64,7 +55,7 @@ router.get('/provider/:id', auth, async (req, res) => {
     const provider = providerData.get({ plain: true });
 
         // hardcoded isUser so the handlebars know which user type it is
-    res.render('profile', {provider, isUser : false});
+    res.render('profile', {provider, isUser: false, uid: req.session.uid, viewProfile: true});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -81,7 +72,7 @@ router.get('/ticket/', auth, async (req, res) => {
       res.redirect(307, '/provider');
       return;
     }
-    res.render('ticket', { createATicket: true, uid: req.session.uid });
+    res.render('ticket', { createATicket: true, uid: req.session.uid, viewProfile: true });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -112,7 +103,7 @@ router.get('/ticket/:id', auth, async (req, res) => {
         const provider = (await Provider.findByPk(ticket.provider_id, {
           attributes: {exclude: ['password']}})).toJSON();
           console.log(provider);
-          res.render('ticket', {ticket, provider});
+          res.render('ticket', {ticket, provider, uid: req.session.uid, viewProfile: true});
         } else {
         // console.log("no provider#################################3");
         res.render('ticket', {ticket});
@@ -125,9 +116,9 @@ router.get('/ticket/:id', auth, async (req, res) => {
       const distance = (Math.round(zipCodeData.zipCodeDistance(ticket.User.zipcode, providerZipcode,'M') * 100) / 100) + " miles"
       
       const noProvider = (!ticket.provider_id) ? true : false; 
-
+      const iAmProvider = (ticket.provider_id === req.session.uid) ? true : false;
       
-      res.render('ticket', {ticket, distance, isProvider: true, noProvider: noProvider, uid: req.session.uid});
+      res.render('ticket', {ticket, distance, isProvider: true, noProvider: noProvider, uid: req.session.uid, viewProfile: true, iAmProvider: iAmProvider});
     }
 
   } catch (err) {

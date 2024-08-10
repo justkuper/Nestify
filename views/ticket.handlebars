@@ -12,6 +12,8 @@
                     <input id="date" type="date">
                     <label for="pay">Pay</label>
                     <input id="pay" type="text" placeholder="How much are you willing to pay?">
+                    <a href="/user" id="backbtn" class="btn waves-effect waves-light">Back
+                    <i class="material-icons right">backspace</i></a>
                     <button id="createticket" data-uid="{{uid}}" class="btn waves-effect waves-light" type="submit" name="action">Submit
                         <i data-uid="{{uid}}" class="material-icons right">send</i>
                     </button>
@@ -29,25 +31,39 @@
                     <label for="date">Date</label>
                     <p>{{ticket.date}}</p>
                     <label for="pay">Pay</label>
-                    <p>{{ticket.pay}}</p>
+                    <p>${{ticket.pay}}</p>
                     {{#if provider}}
                     <label for="provider">Provider's Information:</label>
                     <p>{{provider.username}} {{provider.email}}</p>
+                    <p>{{provider.profile}}</p>
                         {{/if}}
                     {{#if isProvider}}
                     <label for="distance">Distance</label>
                     <p>{{distance}}</p>
                         {{#if noProvider}}
-                            <label for="email">Email</label>
+                            <label for="email">Requestor's email</label>
                             <p>{{ticket.User.email}}</p>
+                            <a href="/provider" id="backbtn" class="btn waves-effect waves-light">Back
+                            <i class="material-icons right">backspace</i></a>
                             <label for="button"></label>
-                            <button id="acceptbtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{uid}}">Accept Request
+                            <button id="acceptbtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{uid}}" data-tid="{{ticket.id}}">Accept Request
                                 <i class="material-icons right">send</i>
                         {{else}}
-                            <p>This ticket is already claimed by another provider.</p>
+                            {{#if iAmProvider}}
+                            <label for="email">Requestor's email</label>
+                            <p>{{ticket.User.email}}</p>
+                            <p>You accepted this ticket. Contact the requestor for further information.</p>
+                                                        <a href="/provider" id="backbtn" class="btn waves-effect waves-light">Back
+                            <i class="material-icons right">backspace</i></a>
+                            {{else}}
+                            <p>This ticket is already accepted by another provider.</p>
+                            {{/if}}
                         {{/if}}
-                    {{/if}}
                     <script src="/js/ticket.js"></script>
+                    {{else}}
+                    <a href="/user" id="backbtn" class="btn waves-effect waves-light">Back
+                    <i class="material-icons right">backspace</i></a>
+                    {{/if}}
                 {{/if}}
 
 

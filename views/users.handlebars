@@ -2,33 +2,43 @@
     <div class="row">
         <section class="col s12">
         <section class="col s4 ">
-            <h3>Requests History</h3>
-    
+            {{#if isUser}}
+            <h4>Tickets History</h4>
+            {{else}}
+            <h4>More available tickets</h4>
+            {{/if}}
             <ul class="green lighten-1">
                 {{#each tickets as |ticket|}}
                 <li>
-                    <a href="/ticket/{{ticket.id}}">{{ticket.date}}</a>
+                    <a class="black-text" href="/ticket/{{ticket.id}}">{{ticket.date}}  ${{ticket.pay}} {{#if ticket.provider_id}} accepted {{/if}}</a>
                 </li>
                 {{/each}}
         </section>
 
         <section class="col s8">
-            <h3>Last Request</h3>
-             <div class="card-panel green lighten-1"></div>
+            {{#if isUser}}
+            <h4>Upcoming ticket</h4>
+            {{else}}
+            <h4>Upcoming available ticket</h4>
+            {{/if}}
+             <div class="card-panel green lighten-1">
 
             {{#if recentTicket}}
-                <p>Request ID: {{recentTicket.id}}</p>
-                <p>Request Date: {{recentTicket.date}}</p>
-                <p>Request Description: {{recentTicket.description}}</p> 
-                <p>Request Pay: {{recentTicket.pay}}</p>
+                <p>Date: {{recentTicket.date}}</p>
+                <p>Description: {{recentTicket.description}}</p> 
+                <p>Pay: ${{recentTicket.pay}}</p>
                 {{#if recentTicket.provider_id}}
-                <p>Provider: {{recentTicket.provider_id}}</p>
-
+                <p>Provider: {{recentTicket.Provider.email}}</p>
                 {{/if}} 
+                <a class="blue lighten-2 black-text" href="/ticket/{{recentTicket.id}}">See more details</a>
             {{else}}
-            <h3>No tickets available.</h3>
+            <h4>No tickets available.</h4>
             {{/if}}
               </div>
         </section>
     </section>
-   <script src="/js/users.js"></script>
+    {{#if isUser}}
+    <script src="/js/user.js"></script>
+    {{else}}
+    <script src="/js/provider.js"></script>
+    {{/if}}
