@@ -10,7 +10,7 @@
             <ul class="green lighten-1">
                 {{#each tickets as |ticket|}}
                 <li>
-                    <a class="black-text" href="/ticket/{{ticket.id}}">{{ticket.date}}  ${{ticket.pay}} {{#if ticket.provider_id}} accepted {{/if}}</a>
+                    {{#if ticket.provider_id}} <i class="material-icons">directions_run</i> {{else}}<i class="material-icons">access_time</i> {{/if}}<a class="black-text" href="/ticket/{{ticket.id}}">{{ticket.date}}  ${{ticket.pay}}</a> 
                 </li>
                 {{/each}}
         </section>
