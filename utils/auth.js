@@ -1,4 +1,4 @@
-const withAuth = (req, res, next) => {  
+const auth = (req, res, next) => {  
   if (!req.session.userType) {
     res.redirect(307, '/login');
     return;
@@ -9,4 +9,18 @@ const withAuth = (req, res, next) => {
   next();
 };
 
-module.exports = withAuth;
+function redirectAuthed(req, res, next) {
+  if (req.session.userType === "user") {
+    res.redirect('/user');
+    return;
+  } else if (req.session.userType === "provider") {
+    res.redirect('/provider');
+    return;
+  }
+  next();
+}
+
+module.exports = {
+  auth,
+  redirectAuthed
+}

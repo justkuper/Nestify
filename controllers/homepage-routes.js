@@ -1,33 +1,21 @@
 const express = require("express");
 const router = express.Router();
-
+const {redirectAuthed} = require("../utils/auth");
 
 // keep for testing purpose
 router.get("/sessiondata", (req, res) => {
   res.json(req.session);
 });
 
-router.get('/', (req, res) => {
-  if (req.session.userType) {
-    res.redirect('/account');
-    return;
-  }
+router.get('/', redirectAuthed, (req, res) => {
   res.render('homepage');
 });
 
-router.get('/signup', (req, res) => {
-  if (req.session.userType) {
-    res.redirect('/account');
-    return;
-  }
+router.get('/signup', redirectAuthed, (req, res) => {
   res.render('signUp');
 });
 
-router.get('/login', (req, res) => {
-  if (req.session.userType) {
-    res.redirect('/account');
-    return;
-  }
+router.get('/login', redirectAuthed, (req, res) => {
   res.render('login');
 });
 

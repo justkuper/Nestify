@@ -1,4 +1,4 @@
-const loginBtn = document.querySelector("#login");
+const loginBtn = document.querySelector("#loginBtn");
 const loginFormHandler = async (event) => {
     event.preventDefault();
 

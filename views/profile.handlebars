@@ -47,12 +47,17 @@
                 </div>
             </div>
             {{#if isUser}}
+            <a href="/user" id="backbtn" class="btn waves-effect waves-light">Back
+            <i class="material-icons right">backspace</i></a>            
             <button id="updatebtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{user.id}}" data-usertype="user">Update
                                 <i class="material-icons right">send</i>
-             {{else}}
-             <button id="updatebtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{provider.id}}" data-usertype="provider">Update
-                                <i class="material-icons right">send</i>
+            {{else}}
+            <a href="/provider" id="backbtn" class="btn waves-effect waves-light">Back
+            <i class="material-icons right">backspace</i></a>
+            <button id="updatebtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{provider.id}}" data-usertype="provider">Update
+                                <i class="material-icons right">send</i></button>            
              {{/if}}
+             
     </div>
 </div>
 <script src="/js/profile.js"></script>

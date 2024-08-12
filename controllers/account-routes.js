@@ -1,24 +1,24 @@
 const router = require('express').Router();
 const zipCodeData = require('zipcode-city-distance-more-zipcodes');
 const { User, Provider, Ticket } = require('../models');
-const auth = require('../utils/auth');
+const {auth} = require('../utils/auth');
 const { compareDate, getMostRecentTicket } = require('../utils/sortDate');
 
-router.get('/user/', auth, async (req, res) => {
+router.get('/user', auth, async (req, res) => {
   try {
     const ticketData = (await Ticket.findAll({
       where: {
         user_id: req.session.uid,
       },
-      include : [{ model: User, attributes: ['zipcode']}],
+      include : [{ model: User, attributes: ['zipcode']}, {model: Provider, attributes: ['email']}],
       limit: 15,
       order: [['date', 'DESC']]
     }));
 
     const tickets = ticketData.map((ticket) => ticket.toJSON());
-    // console.log(tickets);
     tickets.sort(compareDate);
     const recentTicket = getMostRecentTicket(tickets);
+    console.log(recentTicket);
     const isUser = (req.session.userType === 'user') ? true : false;
     console.log(isUser);
     res.render('users', {tickets, uid: req.session.uid, recentTicket, isUser: isUser});
@@ -62,22 +62,5 @@ router.get('/provider', auth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-// router.get('/account', auth, async (req, res) => {
-//   try {
-//     const ticket = await getLatestTicket();
-//     res.render('ticket', { ticket });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
-
-// async function getLatestTicket() {
-//   return await Ticket.findOne({
-//       order: [['createdAt', 'DESC']]
-//   });
-// }
-
 
 module.exports = router;
