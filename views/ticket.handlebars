@@ -1,0 +1,69 @@
+{{#if createATicket}}
+    <h1 class="center-align">Create a Ticket</h1>
+
+<div class="row">
+    <div class="col s10">
+        <div class="row">
+             <div class="col s6">
+                    <label for="description">Description:</label>
+                    <input id="description" type="text" placeholder="Tell us what you need">
+                    <label for="date">Date<i class="material-icons right">date_range</i></label>
+                    <input id="date" class="datepicker" placeholder={{today}}>
+                    <label for="pay">Pay</label>
+                    <input id="pay" type="text" placeholder="How much are you willing to pay?">
+                    <a href="/user" id="backbtn" class="btn waves-effect waves-light">Back
+                    <i class="material-icons right">backspace</i></a>
+                    <button id="createticketbtn" data-uid="{{uid}}" class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i data-uid="{{uid}}" class="material-icons right">send</i>
+                    </button>
+                    <script src="/js/createticket.js"></script>
+{{else}}
+<h1 class="center-align">View Ticket Details</h1>
+
+<div class="row">
+    <div class="col s10">
+        <div class="row">
+            <div class="col s6">
+                    <label for="description">Description:</label>
+                    <p>{{ticket.description}}</p>
+                    <label for="date">Date</label>
+                    <p>{{ticket.date}}</p>
+                    <label for="pay">Pay</label>
+                    <p>${{ticket.pay}}</p>
+{{#if provider}}
+                    <label for="provider">Provider's Information:</label>
+                    <p>{{provider.username}} {{provider.email}}</p>
+                    <p>{{provider.profile}}</p>
+{{/if}}
+{{#if isProvider}}
+                    <label for="distance">Distance</label>
+                    <p>{{distance}}</p>
+{{#if noProvider}}
+                            <label for="email">Requestor's email</label>
+                            <p>{{ticket.User.email}}</p>
+                            <a href="/provider" id="backbtn" class="btn waves-effect waves-light">Back
+                            <i class="material-icons right">backspace</i></a>
+                            <label for="button"></label>
+                            <button id="acceptbtn" class="btn waves-effect waves-light" type="submit" name="action" data-uid="{{uid}}" data-tid="{{ticket.id}}">Accept Request
+                            <i class="material-icons right">send</i>
+{{else}}
+{{#if iAmProvider}}
+                            <label for="email">Requestor's email</label>
+                            <p>{{ticket.User.email}}</p>
+                            <p>You accepted this ticket. Contact the requestor for further information.</p>
+                            <a href="/provider" id="backbtn" class="btn waves-effect waves-light">Back
+                            <i class="material-icons right">backspace</i></a>
+{{else}}
+                            <p>This ticket is already accepted by another provider.</p>
+{{/if}}
+{{/if}}
+                            <script src="/js/ticket.js"></script>
+{{else}}
+                            <a href="/user" id="backbtn" class="btn waves-effect waves-light">Back
+                            <i class="material-icons right">backspace</i></a>
+{{/if}}
+{{/if}}
+          </div>
+        </div>
+    </div>
+</div>

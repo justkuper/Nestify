@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nestify</title>
+    <link rel="icon" href="/images/nestify-favicon-color.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="orange lighten-5">
+    <header>
+    <nav style="height: 70px;">
+    <div class="nav-wrapper  green lighten-1">
+      <a href="#" class="brand-logo center black-text"><img src="/images/black-font.png" alt="Nestify Logo" style="height: 60px;"></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {{#if uid}}
+
+        <li id="logout"><a href="#" class=" waves-effect waves-light blue lighten-2 black-text" >Logout</a></li>
+            <script src="/js/"> </script>
+
+        {{#if isUser}}
+        {{#if viewProfile}}
+        {{else}}
+        <li id="createTicket"><a href="#" class=" waves-effect waves-light blue lighten-2 black-text" >Create a Ticket</a></li>
+        {{/if}}
+        {{#unless viewProfile}}
+        <li id="profile" ><a href="#" data-uid="{{uid}}" data-userType="user" class=" waves-effect waves-light blue lighten-2 black-text">View Profile</a></li>
+        {{/unless}}
+        {{else}}
+        {{#unless viewProfile}}
+        <li id="profile" ><a href="#" data-uid="{{uid}}" data-userType="provider" class=" waves-effect waves-light blue lighten-2 black-text">View Profile</a></li>
+        {{/unless}}
+        {{/if}}
+        {{else}}
+        <li id="signup"><a href="#" class=" waves-effect waves-light blue lighten-2 black-text" >Sign Up</a></li>
+        <li id="login"><a href="#" class=" waves-effect waves-light blue lighten-2 black-text" >Login</a></li>
+        {{/if}}
+    </div>
+    </nav>
+    </header>
+ 
+<main class="container">
+
+{{{ body }}}
+
+</main>
+
+
+<footer class="page-footer green lighten-1" style="position: fixed;left: 0;  bottom: 0; width: 100%;">
+    <div class="container">
+     <div class="row">
+      <div class="col l6 s12">
+            <h5 class="black-text">Nestify</h5>
+            <p class="grey-text text-lighten-4">Your go-to platform for organizing and cleaning.</p>
+            <p> © 2024 Nestify, All rights reserved.</p>
+        </div>
+
+               
+     
+        <div class="col l4 offset-l2 s12">
+            <h5 class="black-text">Links</h5>
+                <ul>
+                 <li><a class="grey-text text-lighten-3" href="#!">Home</a></li>
+                 <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+                 <li><a class="grey-text text-lighten-3" href="#!">Contact</a></li>
+                 <li><a class="grey-text text-lighten-3" href="#!">Privacy Policy</a></li>
+                </ul>
+        </div>
+     </div>
+    </div>
+        
+    </footer>   
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
+    {{#unless uid}}
+    <script src="/js/main.js"></script>
+    {{/unless}}
+</html>
