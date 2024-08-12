@@ -1,46 +1,28 @@
-const acceptbtn = document.querySelector('#acceptbtn'); 
+const acceptbtn = document.querySelector("#acceptbtn");
 
-// const ticketFormHandler = async (event) => {
-//   event.preventDefault();
-//   const description = document.querySelector('#ticket-description').value.trim();
-//   const category = document.querySelector('#ticket-category').value.trim();
-//   const status = 'open';
-//   const provider_username = null;
-  
-//   if (description && location && category) {
-//       const response = await fetch('/api/tickets', {
-//       method: 'POST',
-//       body: JSON.stringify({ title, description, status, provider_username }),
-//       headers: { 'Content-Type': 'application/json' },
-//       });
-  
-//       if (response.ok) {
-//       document.location.replace('/user');
-//       } else {
-//       alert('Failed to submit ticket');
-//       }
-//   }
-// }
-
+// * Function to accept a ticket
 const acceptTicketHandler = async (event) => {
   event.preventDefault();
-  
+
+  // * Get the values from the form
   const id = event.target.dataset.uid;
   const ticket_id = event.target.dataset.tid;
-  console.log(id, ticket_id);
+  
+  // * If all the values are present, make a fetch request to accept the ticket
   if (id) {
-  const response = await fetch(`/api/tickets/${ticket_id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ provider_id: id}),
-      headers: { 'Content-Type': 'application/json' },
-  });
+    const response = await fetch(`/api/tickets/${ticket_id}`, {
+      method: "PUT",
+      body: JSON.stringify({ provider_id: id }),
+      headers: { "Content-Type": "application/json" },
+    });
 
-  if (response.ok) {
+    // * If the response is ok, redirect to the ticket page
+    if (response.ok) {
       document.location.replace(`/ticket/${ticket_id}`);
-  } else {
-      alert('Failed to accept ticket');
+    } else {
+      alert("Failed to accept ticket");
+    }
   }
-  }
-}
+};
 
-acceptbtn.addEventListener('click', acceptTicketHandler);
+acceptbtn.addEventListener("click", acceptTicketHandler);

@@ -1,3 +1,4 @@
+// * This file contains the function to compare the date of two tickets and return the most recent ticket
 function compareDate(a, b) {
   return new Date(b.date) - new Date(a.date);
 }
@@ -10,14 +11,14 @@ function getMostRecentTicket(tickets) {
   }
 }
 
-function futureDate (a) {
-  return (new Date(a.date) - new Date()) > -1 * 1000 * 60 * 60 * 24;
+function futureDate(a) {
+  return new Date(a.date) - new Date() > -1 * 1000 * 60 * 60 * 24;
 }
 
-function pastDate (a) {
-  return (new Date(a.date) - new Date()) <= -1 * 1000 * 60 * 60 * 24;
+function pastDate(a) {
+  return new Date(a.date) - new Date() <= -1 * 1000 * 60 * 60 * 24;
 }
 module.exports = {
   compareDate,
-  getMostRecentTicket
-}
+  getMostRecentTicket,
+};

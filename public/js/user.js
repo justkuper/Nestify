@@ -6,9 +6,9 @@ logout.addEventListener('click', () => {
     window.location.replace('/logout');   
 });
 
+// * Redirect to the user or provider page based on the user type
 profile.addEventListener('click', (event) => {
     event.stopPropagation();
-    console.log(event);
     const id = event.target.dataset.uid;
     if (event.target.dataset.usertype === "user") {
       window.location.replace(`/user/${id}`);
@@ -17,7 +17,7 @@ profile.addEventListener('click', (event) => {
     }
 });
 
+// * users can create tickets
 createTicket.addEventListener('click', () => {
-    console.log('asdf');
     window.location.replace('/ticket');
 });
