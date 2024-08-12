@@ -3,6 +3,10 @@ function compareDate(a, b) {
   return new Date(b.date) - new Date(a.date);
 }
 
+function oldestDate(a, b) {
+  return new Date(a.date) - new Date(b.date);
+}
+
 // find the most recent ticket. If there is no eligible one from today to the future, find the most recent one from the past. 
 function getMostRecentTicket(tickets) {
   if (tickets.some(futureDate)) {
@@ -23,5 +27,6 @@ function pastDate(a) {
 }
 module.exports = {
   compareDate,
+  oldestDate,
   getMostRecentTicket,
 };
