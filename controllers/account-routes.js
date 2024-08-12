@@ -60,7 +60,23 @@ router.get('/provider', auth, async (req, res) => {
     tickets.sort(compareDate);
     const recentTicket = getMostRecentTicket(tickets);
 
-    res.render('users', {tickets, uid: req.session.uid, recentTicket});
+   
+  const acceptedTickets = await Ticket.findAll({
+        where: {
+          provider_id: req.session.uid,
+        },
+        include : [{ model: User, attributes: ['zipcode']}],
+        order: [['date', 'DESC']]
+      });
+
+      const providerTickets = acceptedTickets.map((ticket) => {
+        const ticketJSON = ticket.toJSON();
+      return {
+        ...ticketJSON,
+        distance: (Math.round(zipCodeData.zipCodeDistance(ticketJSON.User.zipcode, providerZipcode,'M') * 100) / 100) + " miles"
+      } 
+  });
+    res.render('users', {tickets, uid: req.session.uid, recentTicket, providerTickets});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
