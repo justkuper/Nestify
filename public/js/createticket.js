@@ -1,11 +1,14 @@
+// implement the datepicker by materialize CSS and set the default value as today
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.datepicker');
   var instances = M.Datepicker.init(elems, {
     defaultDate: new Date(),
     setDefaultDate: true,
-    format: 'yyyy/mm/dd',
+    format: 'yyyy-mm-dd',
   });
 });
+
+const createticketbtn = document.querySelector("#createticketbtn");
 
 // * Function to create a ticket
 const createticket = async (event) => {
