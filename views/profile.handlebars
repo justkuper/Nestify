@@ -28,9 +28,9 @@
  <div class="col s4">
    <label for="profile">Profile</label>
     {{#if isUser}}
-        <input id="newprofile" type="text" placeholder="{{user.profile}}"> 
+        <input id="newprofile" type="text" value="{{user.profile}}"> 
     {{else}}
-        <input id="newprofile" type="text" placeholder="{{provider.profile}}">
+        <input id="newprofile" type="text" value="{{provider.profile}}">
     {{/if}}
   </div>
  </div>
@@ -39,9 +39,9 @@
  <div class="col s4">
     <label for="profile">Zipcode</label>
     {{#if isUser}}
-        <input id="newzipcode" type="text" placeholder="{{user.zipcode}}"> 
+        <input id="newzipcode" type="text" value="{{user.zipcode}}"> 
     {{else}}
-        <input id="newzipcode" type="text" placeholder="{{provider.zipcode}}">
+        <input id="newzipcode" type="text" value="{{provider.zipcode}}">
     {{/if}}
   </div>
  </div>

@@ -1,4 +1,11 @@
-const createticketbtn = document.querySelector("#createticket");
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.datepicker');
+  var instances = M.Datepicker.init(elems, {
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    format: 'yyyy/mm/dd',
+  });
+});
 
 // * Function to create a ticket
 const createticket = async (event) => {

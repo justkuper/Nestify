@@ -72,7 +72,7 @@ router.get('/ticket/', auth, async (req, res) => {
       res.redirect(307, '/provider');
       return;
     }
-    res.render('ticket', { createATicket: true, uid: req.session.uid, viewProfile: true });
+    res.render('ticket', { createATicket: true, uid: req.session.uid, viewProfile: true, today: new Date().toISOString().slice(0, 10) });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -106,7 +106,7 @@ router.get('/ticket/:id', auth, async (req, res) => {
           res.render('ticket', {ticket, provider, uid: req.session.uid, viewProfile: true});
         } else {
         // console.log("no provider#################################3");
-        res.render('ticket', {ticket});
+        res.render('ticket', {ticket, uid: req.session.uid, viewProfile: true});
       };
     } else {
       const providerZipcode = (await Provider.findByPk(req.session.uid, {
