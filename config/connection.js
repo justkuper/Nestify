@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
-
 let sequelize;
 
 if (process.env.DB_URL) {
@@ -19,3 +18,4 @@ if (process.env.DB_URL) {
 }
 
 module.exports = sequelize;
+
