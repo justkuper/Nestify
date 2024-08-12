@@ -4,6 +4,8 @@ const { User, Provider, Ticket } = require('../models');
 const {auth} = require('../utils/auth');
 const { compareDate, getMostRecentTicket } = require('../utils/sortDate');
 
+// this is the user's dashboard view
+// get the user's tickets, find the most upcoming/recent ticket and render then via users.handlebars
 router.get('/user', auth, async (req, res) => {
   try {
     const ticketData = (await Ticket.findAll({
@@ -28,6 +30,8 @@ router.get('/user', auth, async (req, res) => {
   }
 });
 
+// this is the provider's dashboard view
+// get the available and provider's tickets, find the most upcoming/recent ticket and render then via users.handlebars
 router.get('/provider', auth, async (req, res) => {
   try {
     const ticketData = (await Ticket.findAll({

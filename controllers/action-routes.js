@@ -3,6 +3,7 @@ const { User, Provider, Ticket } = require('../models');
 const zipCodeData = require('zipcode-city-distance-more-zipcodes');
 const {auth} = require('../utils/auth');
 
+// Look into the user's proile and load the the user data from db and pass it to profile.handlebar
 router.get('/user/:id', auth, async (req, res) => {
   // check whether the atttemp is from the correct user type and matching user id.  Otherwise redirect back to /login.  
   if (req.session.userType !== "user" || req.session.uid != req.params.id) {
@@ -32,9 +33,9 @@ router.get('/user/:id', auth, async (req, res) => {
   }
 });
 
+
+// Look into the provider's proile and load the the provider data from db and pass it to profile.handlebar
 router.get('/provider/:id', auth, async (req, res) => {
-
-
   try {
     // check whether the atttemp is from the correct user type and matching user id.  Otherwise redirect back to /login.  
     if (req.session.userType !== "provider" || req.session.uid != req.params.id) {
@@ -62,11 +63,9 @@ router.get('/provider/:id', auth, async (req, res) => {
   }
 });
 
-
+// /ticket to create a ticket page
 router.get('/ticket/', auth, async (req, res) => {
   try {
-    // check userTYpe = "user", then proceed.  otherwise, redirect back to /provider.
-    // Check if the user type is available in the session
     // Perform logic based on the user type
     if (req.session.userType === 'provider') {
       res.redirect(307, '/provider');
@@ -79,6 +78,7 @@ router.get('/ticket/', auth, async (req, res) => {
   }
 });
 
+// /ticket/:id user view the specifc ticket. provider view the ticket and can accept an open ticket.
 router.get('/ticket/:id', auth, async (req, res) => {
   // check ticket.user_id = session.uid and userType is user, if false, bounce back to /user.
   try {
@@ -99,13 +99,11 @@ router.get('/ticket/:id', auth, async (req, res) => {
         return;
       }
       if (ticket.provider_id) {
-        // console.log("yes provider#################################3");
         const provider = (await Provider.findByPk(ticket.provider_id, {
           attributes: {exclude: ['password']}})).toJSON();
           console.log(provider);
           res.render('ticket', {ticket, provider, uid: req.session.uid, viewProfile: true});
         } else {
-        // console.log("no provider#################################3");
         res.render('ticket', {ticket, uid: req.session.uid, viewProfile: true});
       };
     } else {

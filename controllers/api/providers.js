@@ -11,7 +11,6 @@ router.post('/', async (req, res) => {
       zipcode: req.body.zipcode,
       password: req.body.password,
     })).toJSON();
-    // console.log(dbProviderData.toJSON().id);
     req.session.save(() => {
       req.session.userType = "provider";
       req.session.uid = dbProviderData.id;
@@ -24,6 +23,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update a provider profile
 router.put('/:id', (req, res) => {
   if (req.session.uid != req.params.id) {
     res.status(400).json({ message: "Do not hijack other Provider's profile." });
@@ -54,7 +54,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// Login
+// Login a provider
 router.post('/login', async (req, res) => {
   try {
     const dbProviderData = await Provider.findOne({
@@ -87,16 +87,6 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
-  }
-});
-
-// Logout use root/logout instead
-router.post('/logout', (req, res) => {
-  if (req.session.userType) {
-    req.session.destroy();
-    res.redirect("/");
-  } else {
-    res.status(404).end();
   }
 });
 

@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update a ticket.  used when a provider accepts a ticket.
 router.put('/:id', (req, res) => {
   Ticket.update({
       provider_id: req.body.provider_id,
