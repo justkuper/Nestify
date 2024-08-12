@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update a user profile
 router.put('/:id', (req, res) => {
   if (req.session.uid != req.params.id) {
     res.status(400).json({ message: "Do not hijack other user's profile." });
@@ -54,7 +55,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// Login
+// Login a user
 router.post('/login', async (req, res) => {
   try {
     const dbUserData = await User.findOne({
@@ -87,16 +88,6 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
-  }
-});
-
-// Logout use root/logout instead
-router.post('/logout', (req, res) => {
-  if (req.session.userType) {
-    req.session.destroy();
-    res.redirect("/");
-  } else {
-    res.status(404).end();
   }
 });
 
