@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.datepicker');
   var instances = M.Datepicker.init(elems, {
-    deafaultDate: Date.now(),
+    defaultDate: new Date(),
     setDefaultDate: true,
     format: 'yyyy/mm/dd',
   });
