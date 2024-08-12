@@ -66,6 +66,7 @@ router.get('/provider', auth, async (req, res) => {
           provider_id: req.session.uid,
         },
         include : [{ model: User, attributes: ['zipcode']}],
+        order: [['date', 'DESC']]
       });
 
       const providerTickets = acceptedTickets.map((ticket) => {
