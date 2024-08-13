@@ -13,7 +13,7 @@ router.get('/user', auth, async (req, res) => {
         user_id: req.session.uid,
       },
       include : [{ model: User, attributes: ['zipcode']}, {model: Provider, attributes: ['email']}],
-      limit: 15,
+      limit: 10,
       order: [['date', 'DESC']]
     }));
 
@@ -39,7 +39,7 @@ router.get('/provider', auth, async (req, res) => {
         provider_id: null,
       },
       include : [{ model: User, attributes: ['zipcode']}],
-      limit: 15,
+      limit: 10,
       order: [['date', 'DESC']]
     }));
 
