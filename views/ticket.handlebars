@@ -18,7 +18,7 @@
                     </button>
                     <script src="/js/createticket.js"></script>
 {{else}}
-<h1 class="center-align">View Ticket Details</h1>
+<h3 class="center-align">View Ticket Details</h3>
 
 <div class="row">
     <div class="col s10">
@@ -48,9 +48,10 @@
                             <i class="material-icons right">send</i>
 {{else}}
 {{#if iAmProvider}}
-                            <label for="email">Requestor's email</label>
-                            <p>{{ticket.User.email}}</p>
                             <p>You accepted this ticket. Contact the requestor for further information.</p>
+                            <label for="email">Requestor information</label>
+                            <p>{{ticket.User.username}} {{ticket.User.email}}</p>  
+                            <p>{{ticket.User.profile}}</p>
                             <a href="/provider" id="backbtn" class="btn waves-effect waves-light">Back
                             <i class="material-icons right">backspace</i></a>
 {{else}}
