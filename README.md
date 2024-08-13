@@ -1,59 +1,85 @@
-Netsify
+# Nestify
+[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)
 
-Project-2: Maid request board
+***
+## Table of contents
+- Nestify
+  - [Description](#Description)
+  - [Installation](#Installation)
+  - [Usage](#Usage)
+  - [Contributing](#Contributing)
+  - [License](#License)
+  - [Questions](#Questions)
+  - [Screenshot](#Screenshot)
 
-CREATED BY:
-KUPER BANK
-ARTURO AYALA
-PO SHIN HUANG
+***
+## Description
+"Effortlessly browse, post, and manage job listings on Nestify with our user-friendly website. Streamlined features make it easy for those in need of help to connect with potential workers. Stay organized and save time with customizable alerts and seamless communication tools." [A demo server is updated and running here](https://nestify-6l3a.onrender.com/)
 
+***
+## Installation
+- The generator requires Node.js.  [See Node.js installation.](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+1. Clone this repo using `git clone`: `https://github.com/justkuper/Nestify`
+2. In the terminal, move to where the cloned local repo is. `cd new_repo`
+3. `npm install`
+4. Set up the database schema and seeds data: In the terminal move into the folder db/
+   type `psql -U postgres` you will need to enter the password for Postgres user postgres. Next in the Postgres bash:
+   type `\i schema.sql` 
+     - exit by typing  `\q`
+5. Create a `.env` file in the root folder to host environmental variables
+   - DB_NAME='nestify_db'
+   - DB_USER='postgres'
+   - DB_PASSWORD= your lovely password here
+   - DB_SESSION_KEY = something fun!
+6. Run the seed data, by running the seed command `npm run seed`
+7. Start your server using the command `npm run start`
+8. Ready to use after the modules are installed, head over to the url `http://localhost:3001` to see the application 
 
-NESTIFY: Requesting and Hiring a Maid Service
-Welcome to Nestify, your trusted platform for requesting and hiring top-notch maid services. This README will guide you through the features, functionalities, and steps to make the most out of our platform.
+***
+## Usage
+1. Once the server is running, go to `http://localhost:3001` from a browser and sign up to be a user to create tickets or as a provider to accept tickets. 
 
-Table of Contents
-Introduction
-Features
-User Registration
-Requesting a Maid Service
-Managing Bookings
-Payment Process
-Ratings and Reviews
-Contact and Support
-Introduction
-Nestify connects you with professional and reliable maid services tailored to your specific needs. Whether you need a one-time deep cleaning or a recurring housekeeping service, Nestify makes it easy to find and hire the perfect maid for the job.
+2. To sign up fill out a form:
+	Username:
+	Email:
+	Password:
+	Zip Code:
+	About yourself:
+	Check one: [ ] User or [ ] Provider
 
-Features
-User-Friendly Interface: Simple and intuitive design for easy navigation.
-Verified Maids: All service providers are thoroughly vetted for quality and reliability.
-Customizable Requests: Specify your cleaning needs, schedule, and preferences.
-Secure Payments: Convenient and safe payment options.
-Ratings and Reviews: Read reviews from other users and rate your experience.
-User Registration
-To start using Nestify, you need to create an account:
+3. As a user, create a job ticket:
+	Job Description:
+	Date you want it done:
+	Pay:
 
-Sign Up: Visit our website and click on the "Sign Up" button.
-Fill in Details: Provide your name, email, phone number, and create a password.
-Verify Email: Check your email for a verification link and click on it to verify your account.
-Profile Setup: Complete your profile by adding your address and any additional preferences.
-Requesting a Maid Service
-Log In: Use your credentials to log into your Nestify account.
-New Request: Click on "Request Service" and fill out the form with details about the type of cleaning you need, date, time, and any specific instructions.
-Select Maid: Browse through the list of available maids, view their profiles, and select the one that best fits your needs.
-Confirm Booking: Review your request and confirm the booking.
-Managing Bookings
-View Bookings: Go to the "My Bookings" section to view upcoming and past bookings.
-Modify Booking: If you need to make changes to a scheduled service, select the booking and click "Modify."
-Cancel Booking: To cancel a service, select the booking and click "Cancel." Note that cancellation policies may apply.
-Payment Process
-Payment Methods: Add your preferred payment method (credit card, debit card, or other available options).
-Secure Payment: All transactions are processed securely through our payment gateway.
-Invoice: After the service is completed, you will receive an invoice via email.
-Ratings and Reviews
-Rate Service: After a service is completed, you can rate your maid based on your satisfaction.
-Write a Review: Provide feedback to help other users make informed decisions.
-View Reviews: Check the ratings and reviews of maids before making a booking.
-Contact and Support
-If you have any questions or need assistance, our support team is here to help:
+4. As a provider, view upcoming and accepted tickets.
 
-This README provides a comprehensive guide to using the Nestify platform. For more detailed information and updates, please refer to our website.
+5. Follow up with the email provided to coordinate the logistics of your next job!
+
+***
+## Contributing
+See [Questions](#Questions) for contact info.
+
+***
+## License
+This project adopts WTFPL license practices. Check the website for license details: [License: WTFPL](http://www.wtfpl.net/about/)
+
+***
+## Questions
+[Arturo Ayala GitHub profile.](https://github.com/kalisurf3r)
+[Kuper Bank GitHub profile.](https://github.com/justkuper)
+[Po Shin Huang GitHub profile.](https://github.com/momokokong)
+
+***
+## Screenshot
+- Homepage
+![homepage](./screenshot/homepage.png)
+- User dashboard.
+![user-dashboard](./screenshot/user-dashboard.png)
+- User creates a ticket
+![user-create-a-ticket](./screenshot/user-create-a-ticket.png)
+- Provider dashboard
+![provider-dashboard](./screenshot/provider-dashboard.png)
+- Provider views a ticket and accepts if applicable
+![provider-view-a-ticket](./screenshot/provider-view-a-ticket.png)
+
